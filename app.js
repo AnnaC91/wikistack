@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for HTML form submits
 app.use(bodyParser.json()); // would be for AJAX requests
 
 //syncing db
-models.db.sync({})
+models.db.sync({force: true})
 .then(function () {
     return models.Page.sync({})
 })
