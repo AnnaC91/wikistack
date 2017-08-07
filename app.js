@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const nunjucks = require('nunjucks');
-// const makesRouter = require('./routes');
+const router = require('./routes');
 const fs = require('fs');
 const path = require('path');
 const mime = require('mime');
@@ -30,6 +30,7 @@ models.db.sync({force: true})
 })
 .then(function () {
     // make sure to replace the name below with your express app
+    // start the server
     app.listen(3000, function () {
         console.log('Server is listening on port 3000!');
     });
@@ -43,5 +44,5 @@ models.db.sync({force: true})
 
 app.use(express.static(path.join(__dirname, '/public')));
 
-// modular routing that uses io inside it
-// app.use('/', makesRouter(io));
+// modular routing 
+app.use('/', router);
