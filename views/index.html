@@ -4,7 +4,7 @@
 <ul class="list-unstyled">
   {% for page in pages %}
   <!-- <h1>HII</h1> -->
-  <li><a href="#">{{page.dataValues.title}}</a></li>
+  <li><a href="/wiki/{{page.dataValues.urlTitle}}">{{page.dataValues.title}}</a></li>
   {% endfor %}
 </ul>
 {% endblock %}
