@@ -24,7 +24,9 @@ app.use(bodyParser.urlencoded({ extended: true })); // for HTML form submits
 app.use(bodyParser.json()); // would be for AJAX requests
 
 //syncing db
-models.db.sync({force: true})
+//TODO how to account for db schema changing?
+// models.db.sync({force: true})
+models.db.sync()
 .then(function () {
     return models.Page.sync({})
 })

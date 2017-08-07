@@ -12,25 +12,37 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
 
-  // STUDENT ASSIGNMENT:
-  // add definitions for `title` and `content`
-
   var page = Page.build({
     title: req.body.title,
     content: req.body.content
   });
-
-  // STUDENT ASSIGNMENT:
-  // make sure we only redirect *after* our save is complete!
-  // note: `.save` returns a promise or it can take a callback.
-  page.save();
-  // -> after save -> res.redirect('/');
-  res.json(req.body);
+  page.save()
+  .then(anotherTask => {
+    res.redirect('/wiki/'+page.urlTitle);
+  })
+  .catch(err);
+  
+  
 });
 
 router.get('/add', function(req, res, next) {
   //res.send('got to GET /wiki/add');
   res.render('addpage');
+});
+
+router.get('/:urlTitle', function(req, res, next) {
+  // res.send(req.params.urlTitle);
+  Page.findOne({
+  where: {urlTitle: req.params.urlTitle},
+  // attributes: ['id', ['name', 'title']]
+}).then(page => {
+  // console.log("GET URL TITLE");
+  // console.log(page);
+  // res.json(page);
+  res.render('wikipage', {page});
+  // project will be the first entry of the Projects table with the title 'aProject' || null
+  // project.title will contain the name of the project
+}).catch(next);
 });
 
 module.exports = router;
